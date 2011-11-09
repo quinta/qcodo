@@ -2,31 +2,39 @@ This is the central location for all include files.  Feel free to include
 any new classes or include files in this directory.
 
 
-
 **** configuration.inc.php ****
 
-This conatins server-level configuration information (e.g. database connection
+This contains server-level configuration information (e.g. database connection
 information, docroot paths (including subfoldering and virtual directories),
 etc.  You must make modifications to this file to have it reflect the
 configuration of your system.
 
-See the inline documentation in qcodo/_core/configuration.inc.php-full for more information.
-
+See the inline documentation in qcodo/_core/configuration.inc.php-full for 
+more information.
 
 
 **** prepend.inc.php ****
 
 This is the top-level include file for any and all PHP scripts which use
-Qcodo.  Global, application-wide loaders, settings, etc. are in this file.
-
-Feel free to make modifications/changes/additions to this file as you wish.
-Note that the QApplication class is defined in prepend.inc as well.  Feel free
-to make changes, override methods, or add functionality to QApplication as
-needed.
+Qcodo.  This file checks basic location configuration and require()s the
+QApplication class file (see next entry) to initialize the framework.
 
 See the inline documentation in prepend.inc.php for more information.
 
 
+**** QApplication.class.php ****
+
+Global, application-wide loaders, settings, etc. are in this file. You must copy
+the distribution example QApplication.class.php-dist to QApplication.class.php
+when installing QCodo, this will be your main "Application" class file for the 
+framework.
+
+Feel free to make modifications/changes/additions to this file as you wish.
+Note that the QApplication class is defined in prepend.inc as well.  Feel free
+to make changes, override methods, or add functionality to QApplication as
+needed. 
+
+See the inline documentation in QApplication.class.php for more information.
 
 **** qcodo/ ****
 
@@ -55,22 +63,31 @@ The qcodo/ subdirectory contains the codebase for the qcodo framework, itself.
 	changes/fixes can hopefully be integrated into the Qcodo core.
 
 
-
-**** data_classes/, data_classes/generated/, formbase_classes_generated/, panelbase_classes/generated ****
+**** CODE GENERATION DIRECTORIES ****
+ - data_classes/ 
+ - data_classes/generated/
+ - data_meta_controls/
+ - data_meta_controls/generated/
 
 These directories are created when you code generate, and contain the code
 generated classes.  Note that the files in any directory named "generated"
 will ALWAYS be overwritten by the code generator.
 
-HOWEVER, the files in data_classes., itself, will NEVER be overwritten.
+HOWEVER, the files in the top level directories ( "data_classes","data_meta_controls")
+are subclasses of the ORM base classes for modification and will NEVER be overwritten.
 Therefore, you should FEEL FREE to make ANY CUSTOMIZATIONS to your data 
-classes in the data_classes directory.
+classes IN THE DATA_CLASSES DIRECTORIES, leaving the generated base class files
+in the subdirectories "generated/" alone.
 
 You can see the "Customized Business Logic" example in Section 2 on the
 Examples Site for more information.
 
-
-
+NOTE that there are also generated files in the www/drafts and www/drafts/panels directories;
+these are scaffolding - default CRUD capable UI files that you can use. Simply copy these to a
+different location and alter them for your needs - BUT BEWARE! Those drafts _will_ be overwritten
+on the next code generation so BE SURE YOU MOVE THEM OUT OF THE WAY TO SAVE ANY CHANGES 
+you have made. The form and panel drafts and the ORM and MetaControl base classes
+are all overwritten during code generation to reflect changes in the database schema.
 
 
 **** MISC
